@@ -2,342 +2,289 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
-// This Code is need a mono.
-
 namespace Linq_ArrayAndList
 {
-	class MainClass
-	{
-		public static void Main(string[] args)
-		{
-			var AandL = new ArrayAndList();
+    class MainClass
+    {
+        public static void Main(string[] args)
+        {
+            var arrayAndList = new ArrayAndList();
 
-			AandL.ListRepeat();
+            arrayAndList.ArrayRange();
 
-			AandL.ArrayRepeat();
+            arrayAndList.numAverage();
 
-			AandL.ArrayRange();
+            arrayAndList.numAverage2();
 
-			AandL.numAverage();
+            arrayAndList.ListSum();
 
-			AandL.numAverage2();
+            arrayAndList.minList();
 
-			AandL.ListSum();
+            arrayAndList.maxList();
 
-			AandL.minList();
+            arrayAndList.ListCount();
 
-			AandL.maxList();
+            arrayAndList.StoryCount();
 
-			AandL.ListCount();
+            arrayAndList.CheckSix();
 
-			AandL.StoryCount();
+            arrayAndList.Check1000();
 
-			AandL.CheckSix();
+            arrayAndList.CheckZero();
 
-			AandL.Check1000();
+            arrayAndList.CheckPrice();
 
-			AandL.CheckZero();
+            arrayAndList.ListEqual();
 
-			AandL.CheckPrice();
+            arrayAndList.CheckThree();
 
-			AandL.ListEqual();
+            arrayAndList.FindIndex();
 
-			AandL.CheckThree();
+            arrayAndList.TakeIndex();
 
-			AandL.FindIndex();
+            arrayAndList.TakeUnder600();
 
-			AandL.TakeIndex();
+            arrayAndList.selectLower();
 
-			AandL.TakeUnder600();
+            arrayAndList.makeCollection();
 
-			AandL.selectLower();
+            arrayAndList.outDuplicate();
 
-			AandL.makeCollection();
+            arrayAndList.orderBy();
+        }
+    }
 
-			AandL.outDuplicate();
+    class ArrayAndList
+    {
+        Books Books = new Books();
 
-			AandL.orderBy();
-		}
-	}
+        private IEnumerable<Book> books = Books.GetBooks();
 
-	class ArrayAndList
-	{
-		Books Books = new Books();
+        List<int> numbers = new List<int>
+        {
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+            11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        };
 
-		private IEnumerable<Book> books = Books.GetBooks();
+        List<int> numbers1 = new List<int>
+        {
+            1, 2, 3, 4, 5,
+        };
 
-		List<int> numbers = new List<int>
-		{
-			1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-			11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-		};
+        List<int> numbers2 = new List<int>
+        {
+            1, 2, 3, 4, 5,
+        };
 
-		List<int> numbers1 = new List<int>
-		{
-			1, 2, 3, 4, 5,
-		};
+        string text = "This is a pen. That is a dog. It is a cup.";
 
-		List<int> numbers2 = new List<int>
-		{
-			1, 2, 3, 4, 5,
-		};
+        List<string> words = new List<string>
+        {
+            "Microsoft", "Apple", "Google", "Facebook", "Amazon", 
+        };
 
-		string text = "This is a pen That is a dog It is a cup";
+        // Putting consecutive values in an array
+        public void ArrayRange()
+        {
+            var array = Enumerable.Range(1, 20).ToArray();
+            foreach (var num in array)
+                Console.Write("{0} ", num);
+            Console.WriteLine();
+        }
 
-		List<string> words = new List<string>
-		{
-			"Microsoft", "Apple", "Google", "Facebook", "Amazon", 
-		};
+        // Find the average value of the list
+        public void numAverage()
+        {
+            var average = numbers.Average();
+            Console.WriteLine(average);
+            Console.WriteLine();
+        }
 
-		// -1を20個リストに格納する
-		public void ListRepeat()
-		{
-			var numbers = Enumerable.Repeat(-1, 20).ToList();
-			foreach (var num in numbers)
-				Console.Write("{0} ", num);
-			Console.WriteLine();
-		}
+        // Find the average price of a literary work
+        public void numAverage2()
+        {
+            var average = books.Average(x => x.Price);
+            Console.WriteLine(average);
+            Console.WriteLine();
+        }
 
-		// unknownを12個、配列に入れる
-		public void ArrayRepeat()
-		{
-			var strings = Enumerable.Repeat("unknown", 12).ToArray();
-			foreach (var s in strings)
-				Console.Write("{0} ", s);
-			Console.WriteLine();
-		}
+        // Find the total value
+        public void ListSum()
+        {
+            // Total value of the list
+            var sum = numbers.Sum();
+            Console.WriteLine(sum);
+            Console.WriteLine();
 
-		// 配列に連続した値を入れる
-		public void ArrayRange()
-		{
-			var array = Enumerable.Range(1, 20).ToArray();
-			foreach (var num in array)
-				Console.Write("{0} ", num);
-			Console.WriteLine();
-		}
+            // Total value of prices for literary works
+            var totalPrice = books.Sum(x => x.Price);
+            Console.WriteLine(totalPrice);
+            Console.WriteLine();
+        }
 
-		// リストの平均値を求める
-		public void numAverage()
-		{
-			var average = numbers.Average();
-			Console.WriteLine(average);
-			Console.WriteLine();
-		}
+        // Find the minimum value of the list
+        public void minList()
+        {
+            var min = numbers.Where(n => n > 0).Min();
+            Console.WriteLine(min);
+            Console.WriteLine();
+        }
 
-		// 文学作品の平均価格を求める
-		public void numAverage2()
-		{
-			var average = books.Average(x => x.Price);
-			Console.WriteLine(average);
-			Console.WriteLine();
-		}
+        // Find the maximum number of pages in a literary work
+        public void maxList()
+        {
+            var pages = books.Max(x => x.Pages);
+            Console.WriteLine(pages);
+            Console.WriteLine();
+        }
 
-		// 合計値を求める
-		public void ListSum()
-		{
-			// リストの合計値
-			var sum = numbers.Sum();
-			Console.WriteLine(sum);
-			Console.WriteLine();
+        // Counting 7's and 12's
+        public void ListCount()
+        {
+            var count = numbers.Count(n => n == 7 || n == 12);
+            Console.WriteLine(count);
+            Console.WriteLine();
+        }
 
-			// 文学作品の価格の合計値
-			var totalPrice = books.Sum(x => x.Price);
-			Console.WriteLine(totalPrice);
-			Console.WriteLine();
-		}
+        // Literary works with the name "Izu" are counted.
+        public void StoryCount()
+        {
+            var count = books.Count(x => x.Title.Contains("Izu"));
+            Console.WriteLine(count);
+            Console.WriteLine();
+        }
 
-		// リストの最小値を求める
-		public void minList()
-		{
-			var min = numbers.Where(n => n > 0).Min();
-			Console.WriteLine(min);
-			Console.WriteLine();
-		}
+        // Find out if there are multiples of six
+        public void CheckSix()
+        {
+            bool exists = numbers.Any(n => n % 6 == 0);
+            Console.WriteLine(exists);
+            Console.WriteLine();
+        }
 
-		// 文学作品の最大ページ数を求める
-		public void maxList()
-		{
-			var pages = books.Max(x => x.Pages);
-			Console.WriteLine(pages);
-			Console.WriteLine();
-		}
+        // Find out if there are literary works that cost more than ¥1000
+        public void Check1000()
+        {
+            bool exists = books.Any(n => n.Price >= 1000);
+            Console.WriteLine(exists);
+            Console.WriteLine();
+        }
 
-		// 7と12の数をカウント
-		public void ListCount()
-		{
-			var count = numbers.Count(n => n == 7 || n == 12);
-			Console.WriteLine(count);
-			Console.WriteLine();
-		}
+        // Check if all numbers in the list are greater than zero
+        public void CheckZero()
+        {
+            bool exists = numbers.All(n => n > 0);
+            Console.WriteLine(exists);
+            Console.WriteLine();
+        }
 
-		// 物語という名前が入っている文学作品をカウント
-		public void StoryCount()
-		{
-			var count = books.Count(x => x.Title.Contains("物語"));
-			Console.WriteLine(count);
-			Console.WriteLine();
-		}
+        // Find out if all literary works are under ¥1000
+        public void CheckPrice()
+        {
+            bool exists = books.All(x => x.Price <= 1000);
+            Console.WriteLine(exists);
+            Console.WriteLine();
+        }
 
-		// 6の倍数があるかを調べる
-		public void CheckSix()
-		{
-			bool exists = numbers.Any(n => n % 6 == 0);
-			Console.WriteLine(exists);
-			Console.WriteLine();
-		}
+        // Find if two lists are equal
+        public void ListEqual()
+        {
+            bool equal = numbers1.SequenceEqual(numbers2);
+            Console.WriteLine(equal);
+            Console.WriteLine();
+        }
 
-		// 1000円よりも高い文学作品があるかどうかを調べる
-		public void Check1000()
-		{
-			bool exists = books.Any(n => n.Price >= 1000);
-			Console.WriteLine(exists);
-			Console.WriteLine();
-		}
-
-		// リスト内は全て0より大きい数か調べる
-		public void CheckZero()
-		{
-			bool exists = numbers.All(n => n > 0);
-			Console.WriteLine(exists);
-			Console.WriteLine();
-		}
-
-		// 全ての文学作品が1000円以下かを調べる
-		public void CheckPrice()
-		{
-			bool exists = books.All(x => x.Price <= 1000);
-			Console.WriteLine(exists);
-			Console.WriteLine();
-		}
-
-		// 2つのリストが等しいかを求める
-		public void ListEqual()
-		{
-			bool equal = numbers1.SequenceEqual(numbers2);
-			Console.WriteLine(equal);
-			Console.WriteLine();
-		}
-
-		// 最初に見つかった文字数3の単語を表示
-		public void CheckThree()
-		{
+        // Display the first word with 3 letters found
+        public void CheckThree()
+        {
             var words = text.Split(' ');
             var word = words.FirstOrDefault(x => x.Length == 3);
             Console.WriteLine(word);
             Console.WriteLine();
-		}
+        }
 
-		// 6以上のインデックスを取得
-		public void FindIndex()
-		{
-			var index = numbers.FindIndex(n => n > 6);
-			Console.WriteLine(index);
-			Console.WriteLine();
-		}
+        // Get an index of 6 or more
+        public void FindIndex()
+        {
+            var index = numbers.FindIndex(n => n > 6);
+            Console.WriteLine(index);
+            Console.WriteLine();
+        }
 
-		// 7以上の数を6個取り出す
-		public void TakeIndex()
-		{
-			var results = numbers.Where(n => n >= 7).Take(6);
-			foreach (var item in results)
-				Console.WriteLine(item);
-				Console.WriteLine();
-		}
+        // Take out 6 numbers that are 7 or more
+        public void TakeIndex()
+        {
+            var results = numbers.Where(n => n >= 7).Take(6);
+            foreach (var item in results)
+                Console.WriteLine(item);
+                Console.WriteLine();
+        }
 
-		// 600円未満の間だけ文学作品を取り出す
-		public void TakeUnder600()
-		{
-			var selected = books.TakeWhile(x => x.Price < 600);
-			foreach (var book in selected)
-				Console.WriteLine("{0} {1}", book.Title, book.Price);
-			Console.WriteLine();
-		}
+        // Take out literary works only for less than ¥600
+        public void TakeUnder600()
+        {
+            var selected = books.TakeWhile(x => x.Price < 600);
+            foreach (var book in selected)
+                Console.WriteLine("{0} {1}", book.Title, book.Price);
+            Console.WriteLine();
+        }
 
-		// 小文字への変換
-		public void selectLower()
-		{
-			var lowers = words.Select(name => name.ToLower()).ToArray();
-			lowers.ToList().ForEach(Console.WriteLine);
-			Console.WriteLine();
-		}
+        // Conversion to lowercase
+        public void selectLower()
+        {
+            var lowers = words.Select(name => name.ToLower()).ToArray();
+            lowers.ToList().ForEach(Console.WriteLine);
+            Console.WriteLine();
+        }
 
-		// 別のコレクションを作成する
-		public void makeCollection()
-		{
-			var titles = books.Select(x => x.Title);
-			titles.ToList().ForEach(Console.WriteLine);
-			Console.WriteLine();
-		}
+        // Create another collection
+        public void makeCollection()
+        {
+            var titles = books.Select(x => x.Title);
+            titles.ToList().ForEach(Console.WriteLine);
+            Console.WriteLine();
+        }
 
-		// 重複を排除する
-		public void outDuplicate()
-		{
-			var numbersOut = new List<int>
-			{
-				12, 7, 3, 2, 2, 4, 20, 7, 7, 8, 9, 9, 2,
-			};
-			var results = numbersOut.Distinct();
-			results.ToList().ForEach(Console.WriteLine);
-			Console.WriteLine();
-		}
+        // Eliminate duplicates
+        public void outDuplicate()
+        {
+            var numbersOut = new List<int>
+            {
+                12, 7, 3, 2, 2, 4, 20, 7, 7, 8, 9, 9, 2,
+            };
+            var results = numbersOut.Distinct();
+            results.ToList().ForEach(Console.WriteLine);
+            Console.WriteLine();
+        }
 
-		// 価格順に並べ替える
-		public void orderBy()
-		{
-			var sortedBooks = books.OrderBy(x => x.Price);
-			foreach (var book in sortedBooks)
-				Console.WriteLine("{0} {1}", book.Title, book.Price);
-			Console.WriteLine();
-		}
-	}
+        // Sort by price
+        public void orderBy()
+        {
+            var sortedBooks = books.OrderBy(x => x.Price);
+            foreach (var book in sortedBooks)
+                Console.WriteLine("{0} {1}", book.Title, book.Price);
+            Console.WriteLine();
+        }
+    }
 
-	// -------------------------------------------------------------
-
-	// 処理対象の情報
-	
-	class Book {
+    class Book {
         public string Title { get; set; }
         public int Price { get; set; }
         public int Pages { get; set; }
     }
 
+    // Information on the book to be processed
     class Books {
         public static List<Book> GetBooks() {
             var books = new List<Book> {
-               new Book { Title = "こころ", Price = 400, Pages = 378 },
-               new Book { Title = "人間失格", Price = 281, Pages = 212 },
-               new Book { Title = "伊豆の踊子", Price = 389, Pages = 201 },
-               new Book { Title = "若草物語", Price = 637, Pages = 464 },
-               new Book { Title = "銀河鉄道の夜", Price = 411, Pages = 276 },
-               new Book { Title = "二都物語", Price = 961, Pages = 666 },
-               new Book { Title = "遠野物語", Price = 514, Pages = 268 },
+               new Book { Title = "Kokoro", Price = 400, Pages = 378 },
+               new Book { Title = "No Longer Human", Price = 281, Pages = 212 },
+               new Book { Title = "The Izu Dancer ", Price = 389, Pages = 201 },
+               new Book { Title = "Night of the Milky Way Railway", Price = 411, Pages = 276 },
+               new Book { Title = "A Tale of Two Cities", Price = 961, Pages = 666 },
+               new Book { Title = "New Tales of Tono", Price = 514, Pages = 268 },
             };
             return books;
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
